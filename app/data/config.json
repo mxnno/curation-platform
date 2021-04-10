@@ -1,0 +1,20 @@
+{
+    "curationLink": "http://localhost:8080/legacy-api/",
+    "apiLink": "http://localhost:8080/legacy-api/",
+    "internalPrivateApiLink": "http://localhost:8080/api/private/",
+    "privateApiLink": "http://localhost:8080/api/private/",
+    "publicApiLink": "http://localhost:8080/api/v1/",
+    "websocketApiLink": "localhost:8080/pi/websocket/",
+    "testing": false,
+    "production": true,
+   
+    "firebaseConfig": {  
+        "apiKey": "AIzaSyAWAZOU3QV31cJvMX67nZPcp-HRwfYdYEU",
+        "authDomain": "local-oncokb.firebaseapp.com",
+        "databaseURL": "https://local-oncokb.firebaseio.com",
+        "projectId": "local-oncokb",
+        "storageBucket": "local-oncokb.appspot.com",
+        "messagingSenderId": "330975641047",
+        "appId": "1:330975641047:web:096f5179ea0bf9b800df92"
+    }
+}
