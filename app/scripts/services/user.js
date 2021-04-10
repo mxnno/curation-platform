@@ -14,7 +14,7 @@ angular.module('oncokbApp')
     .service('user', function user($routeParams, $q, $firebaseAuth, $firebaseObject, $rootScope, mainUtils, firebaseConnector, dialogs) {
         // me is used only inside user.js to share user information
         var me = {
-            admin: false,
+            admin: true,
             email: '',
             name: '',
             photoURL: '',
@@ -57,9 +57,14 @@ angular.module('oncokbApp')
                 }, function(error) {
                     defer.reject(error);
                 });
+
+                //HR??? -> erzeugt Users Tabelle
+                //updateUserInfo();
+                //console.log("UpdateUser");   
             }).catch(function(error) {
                 defer.reject(error);
             });
+
             return defer.promise;
         }
         function setRole(user) {
@@ -71,17 +76,24 @@ angular.module('oncokbApp')
             }
             var defer = $q.defer();
             getAllUsers().then(function(allUsers) {
-                if (!_.isUndefined(allUsers[me.key].admin)) {
-                    me.admin = allUsers[me.key].admin;
-                } else if (!_.isUndefined(allUsers[me.key].genes)) {
-                    me.genes = allUsers[me.key].genes;
-                }
+                //???
+                //if (!_.isUndefined(allUsers[me.key].admin)) {
+                //    console.log("2");
+                //    me.admin = allUsers[me.key].admin;
+                //} else if (!_.isUndefined(allUsers[me.key].genes)) {
+                //    console.log("3");
+                //    me.genes = allUsers[me.key].genes;
+                //}
                 // $rootScope.me is used to store the user who passed both authtication and authorization process. It is used accross the whole project to access current user info.
+                me.genes = true //???
+                me.admin = true //???
                 $rootScope.me = me;
                 defer.resolve();
+                console.log("4");
             } , function(error) {
                 defer.reject(error);
             });
+            console.log("5");
             return defer.promise;
         }
         function updateUserInfo() {
@@ -114,11 +126,13 @@ angular.module('oncokbApp')
             var defer = $q.defer();
             getAllUsers().then(function(users) {
                 _.each(hugoSymbols, function(hugoSymbol) {
-                    if (users[me.key].admin === true || users[me.key].genes.write === 'all' || users[me.key].genes.write.indexOf(hugoSymbol) !== -1) {
+
+                    editableData[hugoSymbol] = true; //???
+                    /*if (users[me.key].admin === true || users[me.key].genes.write === 'all' || users[me.key].genes.write.indexOf(hugoSymbol) !== -1) {
                         editableData[hugoSymbol] = true;
                     } else {
                         editableData[hugoSymbol] = false;
-                    }
+                    }*/
                 });
                 defer.resolve(editableData);
             }, function(error) {
@@ -134,10 +148,12 @@ angular.module('oncokbApp')
             }
         }
         function getAllUsers() {
+            console.log("7");
             var defer = $q.defer();
             if (_.isEmpty(allUsers)) {
                 firebase.database().ref('Users').on('value', function(users) {
                     allUsers = users.val();
+                    console.log(users.val());
                     defer.resolve(allUsers);
                 }, function(error) {
                     defer.reject(error);

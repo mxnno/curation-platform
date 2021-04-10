@@ -928,6 +928,8 @@ angular.module('oncokbApp')
                 var updatedEvidences = evidencesAllUsers[userName].updatedEvidences;
                 var historyData = evidencesAllUsers[userName].historyData.update;
                 historyData.hugoSymbol = evidencesAllUsers[userName].historyData.hugoSymbol;
+                console.log("genesEvidenceBatch: API-Drug1");
+                console.log(evidencesAllUsers[userName].updatedEvidences);
                 DatabaseConnector.updateEvidenceBatch(updatedEvidences, historyData, function (result) {
                     for (var i = 0; i < updatedEvidenceModels.length; i++) {
                         $scope.modelUpdate(updatedEvidenceModels[i][0], updatedEvidenceModels[i][1], updatedEvidenceModels[i][2], updatedEvidenceModels[i][3], updatedEvidenceModels[i][4]);
@@ -1352,6 +1354,7 @@ angular.module('oncokbApp')
             };
             function formArticles(data) {
                 var description = data.description;
+                console.log("formArticles");
                 var abstractResults = FindRegex.result(description);
                 var tempAbstract;
                 for (var i = 0; i < abstractResults.length; i++) {
@@ -2653,13 +2656,16 @@ angular.module('oncokbApp')
                 });
                 PMIDs.sort();
                 abstracts.sort();
+                console.log("PMIDs: " + PMIDs);
                 return { PMIDs: PMIDs, abstracts: abstracts };
             }
 
             $scope.getAllCitations = function () {
                 var results = [];
-                var geneData = JSON.stringify($scope.gene);
+                var geneData = JSON.stringify($scope.queue);
+                console.log(geneData);
                 results = fetchResults(FindRegex.result(geneData));
+                console.log("results: " + results);
                 var annotationPMIDs = results.PMIDs;
                 var annotationAbstracts = results.abstracts;
 
@@ -2724,6 +2730,7 @@ angular.module('oncokbApp')
             };
             $scope.specifyAnnotation = function () {
                 var annotationLocation = {};
+                console.log("afasd");
                 setAnnotationResult(annotationLocation, fetchResults(FindRegex.result(this.gene.background)), 'Gene Background');
                 _.each($scope.gene.mutations, function (mutation) {
                     setAnnotationResult(annotationLocation, fetchResults(FindRegex.result(JSON.stringify(mutation))), mutation.name);
@@ -2731,6 +2738,8 @@ angular.module('oncokbApp')
                 return annotationLocation;
             };
             function setAnnotationResult(annotationLocation, results, location) {
+
+                console.log("results: " + results);
                 _.each([results.PMIDs, results.abstracts], function (annotations) {
                     _.each(annotations, function (annotation) {
                         annotation = annotation.trim();
@@ -3788,4 +3797,8 @@ angular.module('oncokbApp')
                 $scope.meta.invalid = false;
             }
         };
+
+        $scope.newPat = function(){
+            
+        }
     });

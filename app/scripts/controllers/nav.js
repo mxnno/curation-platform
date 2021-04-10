@@ -12,10 +12,12 @@ angular.module('oncokbApp')
         var tabs = {
             variant: 'Variant Annotation',
             genes: 'Genes',
+            //HR
             tools: 'Tools',
             feedback: 'Feedback',
             queues: 'Curation Queue',
-            therapies: 'Therapies'
+            therapies: 'Therapies',
+            test: 'Test'
         };
 
         function setParams() {
@@ -24,11 +26,13 @@ angular.module('oncokbApp')
             filterTabs.push('queues');
             filterTabs.push('therapies');
             if ($rootScope.me && $rootScope.me.admin) {
-                filterTabs = _.union(filterTabs, ['variant', 'tools', 'feedback']);
+                //HR
+                filterTabs = _.union(filterTabs, ['variant', 'tools', 'feedback', 'test']);
             }
 
             if (!$rootScope.internal) {
-                filterTabs = _.intersection(filterTabs, ['genes', 'queues', 'feedback', 'therapies', 'tools']);
+                //HR
+                filterTabs = _.intersection(filterTabs, ['genes', 'queues', 'feedback', 'therapies', 'tools', 'test']);
             }
 
             $scope.tabs = filterTabs.map(function(tabKey) {

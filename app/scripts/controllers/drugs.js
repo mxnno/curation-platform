@@ -107,9 +107,11 @@ angular.module('oncokbApp')
                                 .then(function(value) {
                                 }, function() {
                                     dialogs.error('Error', 'System cannot update the drug preferred name. Please Contact developer and stop curation.');
+                                    console.log("drugs: API-Drug1");
                                 })
                                 .finally(function() {
                                     $scope.status.updatingDrugName = false;
+                                    console.log("drugs: API-Drug2");
                                 });
                         }, function(reason) {
                             // something goes wrong then the data in database should not be updated.

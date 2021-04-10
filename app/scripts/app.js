@@ -62,6 +62,12 @@ var oncokbApp = angular.module('oncokbApp', [
                 controller: 'ToolsCtrl',
                 internalUse: false
             })
+            //HR
+            .when('/test', {
+                templateUrl: 'views/test.html',
+                controller: 'TestCtrl',
+                internalUse: false
+            })
             .when('/genes', {
                 templateUrl: 'views/genes.html',
                 controller: 'GenesCtrl',
@@ -143,6 +149,7 @@ angular.module('oncokbApp').run(
 
             // Load setting collection from firebase when the app is initialized.
             loadFiles.load('setting').then(function(result) {}, function(error) {});
+            console.log("setting")
 
             // Error loading the document, likely due revoked access. Redirect back to home/install page
             $rootScope.$on('$routeChangeError', function() {

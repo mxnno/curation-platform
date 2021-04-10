@@ -7,6 +7,7 @@ angular.module('oncokbApp')
                  DTColumnDefBuilder, DTOptionsBuilder, FirebaseModel, $q) {
             $scope.init = function() {
                 $scope.newGenes = [];
+                $scope.patientSucc = false;
                 $scope.loading = false;
                 $scope.includeUUID = false;
                 $scope.typeCheckboxes = ['update', 'name change', 'add', 'delete'];
@@ -800,6 +801,34 @@ angular.module('oncokbApp')
                 });
                 $q.all(promises).then(function() {});
             };
+            //HR
+            $scope.create2 = function() {
+                //firebase.database().ref('Patients/'+$scope.newPatient+'/ID/').set($scope.newPatient)
+                DatabaseConnector.addArticle($scope.newArticle);
+                $scope.patientSucc = true
+                console.log("aaaaaaaaaaaaaa");
+                console.log("bbbb");
+                //var mysql = require('mysql');
+                /*var con = mysql.createConnection({
+                    host: "localhost",
+                    user: "root",
+                    password: "root",
+                    database: "newOncokb"
+                    port: 3306
+                  });
+                con.connect(function(err) {
+                    if (err) throw err;
+                    console.log("Connected!");
+                    var sql = "INSERT INTO artciles (name, address) VALUES ('Company Inc', 'Highway 37')";
+                    con.query(sql, function (err, result) {
+                      if (err) throw err;
+                      console.log("1 record inserted");
+                    });
+                  });
+                
+                */  
+            };
+        
 
             function createGene(geneName) {
                 var deferred = $q.defer();

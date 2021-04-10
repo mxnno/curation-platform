@@ -11,7 +11,17 @@
         <span ng-if="createdGenes.length > 0" class="success-info">Gene(s) {{ createdGenes.join(', ') }} have been successfully added to OncoKB.</span>
     </div>
     <hr/>
-
+    <h3>Add Article</h3>
+    <div style="max-width: 400px;">
+        <span class="input-group input-group-sm" role="group" ng-show="me.admin">
+            <input type="text" class="form-control" ng-model="newArticle" placeholder="PMID">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default btn-secondary" ng-click="create2()">Add article</button>
+            </span>
+        </span>
+        <span ng-if="patientSucc = true" class="success-info">Article has been successfully added to DB.</span>
+    </div>
+    <hr/>
     <h3>Review History</h3>
     <div class="row first-row-margin">
         <div class="col-sm-1">Genes:</div>

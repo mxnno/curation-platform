@@ -1,0 +1,15 @@
+<div class="testHR">
+    <button type="button" class="btn btn-default btn-secondary" ng-click="create()">Add Patient</button>
+    <h3>Add Patient</h3>
+    <div style="max-width: 400px;">
+        <span class="input-group input-group-sm" role="group" ng-show="me.admin">
+            <input type="text" class="form-control" ng-model="newPatient" placeholder="Patient ID">
+            <span class="input-group-btn">
+                <button type="button" class="btn btn-default btn-secondary" ng-click="create()">Add Patient</button>
+            </span>
+        </span>
+        <span ng-if="createdPatients.length > 0" class="success-info">Patient has been successfully added to OncoKB.</span>
+    </div>
+    <hr/>
+
+</div>

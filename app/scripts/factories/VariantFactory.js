@@ -90,7 +90,7 @@ angular.module('oncokbApp').factory('Drugs', ['$http', 'OncoKB', function ($http
     }
 
     function updatePreferredName(ncitCode, preferredName) {
-
+        console.log("VariantFactory API-Drug");
         return $http.post(
             OncoKB.config.apiLink + 'drugs/update/' + ncitCode,
             {
@@ -99,12 +99,24 @@ angular.module('oncokbApp').factory('Drugs', ['$http', 'OncoKB', function ($http
             {
                 headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
                 transformRequest: transform
+            });   
+    }
+
+    function addArticle(pmid) {
+        console.log("VariantFactory API-Article");
+        return $http.post(
+            OncoKB.config.apiLink + 'article/add/',
+            pmid,
+            {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest: transform
             });
     }
 
     return {
         updatePreferredName: updatePreferredName,
-        searchNCITDrugs: searchNCITDrugs
+        searchNCITDrugs: searchNCITDrugs,
+        addArticle: addArticle
     }
 }]);
 
@@ -232,6 +244,7 @@ angular.module('oncokbApp').factory('DriveAnnotation', ['$http', 'OncoKB', '_', 
     }
 
     function updateEvidenceBatch(data) {
+        console.log("VariantFac Drug");
         return $http.post(
             OncoKB.config.apiLink + 'evidences/update',
             data,
@@ -275,6 +288,8 @@ angular.module('oncokbApp').factory('DriveAnnotation', ['$http', 'OncoKB', '_', 
     }
 
     function getPubMedArticle(pubMedIDs) {
+
+        console.log("pubMedIDs: " + pubMedIDs);
         var validPubMedIDs = [];
         _.each(pubMedIDs, function(pubMedID) {
             if (!_.isNaN(Number(pubMedID))) {
@@ -292,6 +307,28 @@ angular.module('oncokbApp').factory('DriveAnnotation', ['$http', 'OncoKB', '_', 
         }
     }
 
+    function addArticle(pmid) {
+        console.log("VariantFactory API-Article");
+        console.log(pmid);
+        return $http.post(
+            OncoKB.config.apiLink + 'article/add/',
+            pmid,
+            {
+                headers: {'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8'},
+                transformRequest: transform
+            });
+    }
+
+    function addArticle2(pmid) {
+        return $http({
+            url: OncoKB.config.apiLink + 'article/add/',
+            method: 'POST',
+            params: pmid
+        });
+    }
+
+
+
     return {
         updateGene: updateGene,
         updateGeneType: updateGeneType,
@@ -302,7 +339,9 @@ angular.module('oncokbApp').factory('DriveAnnotation', ['$http', 'OncoKB', '_', 
         getEvidencesByUUID: getEvidencesByUUID,
         getEvidencesByUUIDs: getEvidencesByUUIDs,
         getPubMedArticle: getPubMedArticle,
-        getClinicalTrial: getClinicalTrial
+        getClinicalTrial: getClinicalTrial,
+        addArticle: addArticle, 
+        addArticle2: addArticle2
     };
 }]);
 

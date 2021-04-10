@@ -72,6 +72,7 @@ angular.module('oncokbApp')
                 var deferred = $q.defer();
                 if (testing) {
                     deferred.resolve();
+                    console.log("DBConnector: API-Drug1");
                 } else {
                     Drugs.updatePreferredName(ncitCode, newPreferredName)
                         .then(function(data) {
@@ -79,6 +80,7 @@ angular.module('oncokbApp')
                         }, function(error) {
                             deferred.reject(error);
                         });
+                    console.log("DBConnector: API-Drug2");
                 }
                 return deferred.promise;
             }
@@ -285,6 +287,8 @@ angular.module('oncokbApp')
                     success('');
                     addHisotryRecord(historyData);
                 } else {
+                    console.log("DBConnector updateEvidenceBatch: API-Drug1");
+                    console.log(DriveAnnotation);
                     DriveAnnotation
                         .updateEvidenceBatch(data)
                         .then(function(data) {
@@ -548,6 +552,17 @@ angular.module('oncokbApp')
                     });
             }
 
+            function addArticle(pmid) {
+                
+                console.log("DBConnector Article");
+                //DriveAnnotation.addArticle(pmid);
+                Drugs.updatePreferredName(pmid, "test"); 
+                //Drugs.addArticle(pmid);
+                console.log("VariantFactory API-Drug2");
+                
+            }
+
+
             // Public API here
             return {
                 searchNCITDrugs: searchNCITDrugs,
@@ -596,5 +611,6 @@ angular.module('oncokbApp')
                 getDataValidateWebSocket: function(){
                     return DataValidation.getWebSocket();
                 },
+                addArticle: addArticle
             };
         }]);

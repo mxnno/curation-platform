@@ -13,6 +13,7 @@
 angular.module('oncokbApp')
     .service('loadFiles', function loadFiles($rootScope, $q, mainUtils, dialogs, $timeout, DatabaseConnector,
                                              $firebaseObject, FirebaseModel, firebaseConnector) {
+
         function load(types, data) {
             function loadMeta() {
                 var metaDefer = $q.defer();
@@ -65,10 +66,12 @@ angular.module('oncokbApp')
                 return reviewMetaDefer.promise;
             }
             function loadQueues() {
+
                 var queuesDefer = $q.defer();
                 var ref = firebase.database().ref('Queues');
                 ref.on('value', function(doc) {
                     $rootScope.firebaseQueues = doc.val();
+                    console.log("firebaseQueues: " + $rootScope.firebaseQueues);
                     queuesDefer.resolve('success');
                 }, function(error) {
                     queuesDefer.reject('Fail to load queues file');
