@@ -51,7 +51,7 @@ angular.module('oncokbApp')
             return set('Drugs/' + uuid, drug);
         }
         function setDrugName(uuid, drugName) {
-            return set('Drugs/' + uuid + '/drugNanewEvidencesme', drugName);
+            return set('Drugs/' + uuid + '/drugName', drugName);
         }
         function removeDrug(uuid){
             return remove('Drugs/' + uuid);

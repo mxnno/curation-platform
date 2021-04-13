@@ -76,7 +76,6 @@ angular.module('oncokbApp')
         function result(str) {
             var uniqueResultA = [];
             if (typeof str === 'string' && str !== '') {
-                console.log("findrex");
                 var regex = [allRegex.pmid.regex, allRegex.nct.regex, allRegex.abstract.regex];
                 for (var j = 0, regexL = regex.length; j < regexL; j++) {
                     var resultMatch = str.match(regex[j]);
@@ -107,7 +106,6 @@ angular.module('oncokbApp')
                                         } else {
                                             e = e.trim();
                                         }
-                                        console.log("pmid-push" + e);
                                         uniqueResultA.push({
                                             type: 'pmid',
                                             id: e

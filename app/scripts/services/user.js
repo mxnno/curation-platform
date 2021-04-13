@@ -59,8 +59,7 @@ angular.module('oncokbApp')
                 });
 
                 //HR??? -> erzeugt Users Tabelle
-                //updateUserInfo();
-                //console.log("UpdateUser");   
+                updateUserInfo();
             }).catch(function(error) {
                 defer.reject(error);
             });
@@ -78,10 +77,8 @@ angular.module('oncokbApp')
             getAllUsers().then(function(allUsers) {
                 //???
                 //if (!_.isUndefined(allUsers[me.key].admin)) {
-                //    console.log("2");
                 //    me.admin = allUsers[me.key].admin;
                 //} else if (!_.isUndefined(allUsers[me.key].genes)) {
-                //    console.log("3");
                 //    me.genes = allUsers[me.key].genes;
                 //}
                 // $rootScope.me is used to store the user who passed both authtication and authorization process. It is used accross the whole project to access current user info.
@@ -89,11 +86,9 @@ angular.module('oncokbApp')
                 me.admin = true //???
                 $rootScope.me = me;
                 defer.resolve();
-                console.log("4");
             } , function(error) {
                 defer.reject(error);
             });
-            console.log("5");
             return defer.promise;
         }
         function updateUserInfo() {
@@ -148,12 +143,10 @@ angular.module('oncokbApp')
             }
         }
         function getAllUsers() {
-            console.log("7");
             var defer = $q.defer();
             if (_.isEmpty(allUsers)) {
                 firebase.database().ref('Users').on('value', function(users) {
                     allUsers = users.val();
-                    console.log(users.val());
                     defer.resolve(allUsers);
                 }, function(error) {
                     defer.reject(error);

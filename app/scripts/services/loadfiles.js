@@ -71,7 +71,6 @@ angular.module('oncokbApp')
                 var ref = firebase.database().ref('Queues');
                 ref.on('value', function(doc) {
                     $rootScope.firebaseQueues = doc.val();
-                    console.log("firebaseQueues: " + $rootScope.firebaseQueues);
                     queuesDefer.resolve('success');
                 }, function(error) {
                     queuesDefer.reject('Fail to load queues file');

@@ -74,7 +74,6 @@ angular.module('oncokbApp')
                     ];
                     scope.queue = [];
                     loadFiles.load(['queues', 'meta']).then(function(result) {
-                        console.log("queue");
                         scope.data.hugoSymbols = _.without(_.keys($rootScope.metaData), 'collaborators');
                         if (scope.location === 'gene') {
                             scope.queue = scope.getQueuesByGene(scope.hugoSymbol);
@@ -99,13 +98,11 @@ angular.module('oncokbApp')
                     }
                 },
                 post: function postLink(scope) {
-                    console.log("scope" + scope.input);
                     scope.$watch('input.article', function(n, o) {
                         if (n !== o) {
                             $timeout.cancel(scope.articleTimeoutPromise);
                             scope.articleTimeoutPromise = $timeout(function() {
                                 if (/^[\d]*$/.test(scope.input.article)) {
-                                    console.log("inputArticle" + scope.input.article);
                                     scope.getArticle(scope.input.article);
                                 }
                             }, 500);
@@ -176,7 +173,6 @@ angular.module('oncokbApp')
                 };
                 function addCuration(hugoSymbol) {
                     var currentQueues = $scope.getQueuesByGene(hugoSymbol);
-                    console.log ("CurrentQ: " + currentQueues);
                     var item = {
                         link: $scope.input.link,
                         mainType: $scope.input.mainType ? $scope.input.mainType : '',
@@ -201,18 +197,12 @@ angular.module('oncokbApp')
                             item.variant = '';
                         }
                     }
-                    console.log("1. pmid: " + $scope.predictedArticle);
-                    console.log("2. pmid: "+ $scope.validPMID);
-                    console.log("3. pmid: "+ $scope.input.article);
                     
                     if ($scope.predictedArticle && $scope.validPMID) {
-
-                        console.log("Hier sollten wir landen");
                         item.article = $scope.predictedArticle;
                         item.pmid = $scope.input.article;
                         item.pmidString = 'PMID: ' + item.pmid;
                     } else {
-                        console.log("Hier sollten wir NICHT landen");
                         item.article = $scope.input.article;
                     }
                     currentQueues.push(item);
@@ -331,9 +321,6 @@ angular.module('oncokbApp')
                             item.comment = $scope.input.comment;
                             item.variant = $scope.input.variant;
                             item.curator = $scope.input.curator ? $scope.input.curator.name : '';
-                            console.log("pmida: " + $scope.predictedArticle);
-                            console.log("pmidb: "+ $scope.validPMID);
-                            console.log("pmidc: "+ $scope.input.article);
 
                             if ($scope.predictedArticle && $scope.validPMID) {
                                 item.article = $scope.predictedArticle;
@@ -396,7 +383,6 @@ angular.module('oncokbApp')
                     });
                 };
                 $scope.getArticle = function(pmid) {
-                    console.log("Pmid" + pmid);
                     if (!pmid) {
                         $scope.predictedArticle = '';
                         $scope.validPMID = false;
@@ -405,7 +391,6 @@ angular.module('oncokbApp')
                     }
                     DatabaseConnector.getPubMedArticle([pmid], function(data) {
                         var articleData = data.result[pmid];
-                        console.log("GetPubmed" + articleData);
                         if (!articleData || articleData.error) {
                             $scope.predictedArticle = '<p style="color: red">Invalid PMID</p>';
                             $scope.validPMID = false;

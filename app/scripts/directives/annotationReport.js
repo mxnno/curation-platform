@@ -3,7 +3,6 @@
 angular.module('oncokbApp')
     .directive('annotationReport', function(mainUtils, _) {
 
-        console.log("AnnotationReport");
         return {
             templateUrl: 'views/annotationReport.html',
             restrict: 'E',
@@ -20,19 +19,16 @@ angular.module('oncokbApp')
                 }
 
                 function convertEvidence(evidences) {
-                    //console.log("Evidence Typ: " + evidence.evidenceType);
                     evidences.forEach(function(evidence) {
                         evidence.pmids = evidence.articles.filter(function(article) {
                             return !!article.pmid;
                         });
-                        console.log("pmids: " + evidences.pmids);
                         evidence.abstracts = evidence.articles.filter(function(article) {
                             return !!article.abstract;
                         });
                     });
                     return _.pick(_.reduce(evidences, function(acc, evidence) {
                         var evidenceType = evidence.evidenceType;
-                        console.log("Evidence Typ: " + evidence.evidenceType);
                         if (evidenceType.includes('THERAPEUTIC')) {
                             if (!acc.THERAPEUTIC_IMPLICATIONS) {
                                 acc.THERAPEUTIC_IMPLICATIONS = [];
@@ -69,9 +65,6 @@ angular.module('oncokbApp')
                         acc = acc.concat(next.evidences);
                         return acc;
                     }, []));
-
-                    console.log("asd" + scope.reportData.allEvidences[0]);
-                    console.log("sss" + scope.data.tumorTypes[0]);
 
                     _.each(scope.data.tumorTypes, function(tumorType) {
                         var copyTT = _.cloneDeep(tumorType);
