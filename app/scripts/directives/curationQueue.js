@@ -558,8 +558,15 @@ angular.module('oncokbApp')
                     });
                 };
                 $scope.getQueuesByGene = function(hugoSymbol) {
+
+                    if ($rootScope.firebaseQueues[hugoSymbol] == null){
+
+                        return []
+                    }else{
+                        return $rootScope.firebaseQueues[hugoSymbol] ? angular.copy($rootScope.firebaseQueues[hugoSymbol].queue) : [];
+                    }
       
-                    return $rootScope.firebaseQueues[hugoSymbol] ? angular.copy($rootScope.firebaseQueues[hugoSymbol].queue) : [];
+                    
                 };
                 $scope.updateQueueInDB = function (hugoSymbol, updatedQueues) {
                     var defer = $q.defer();
