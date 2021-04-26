@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  cp_app:
-    image: localoncokb/localcuration:latest
+  curation_platform:
+    build: .
     ports:
       - "9001:9001"
 

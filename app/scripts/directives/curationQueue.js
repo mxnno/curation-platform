@@ -565,7 +565,6 @@ angular.module('oncokbApp')
                     }else{
                         return $rootScope.firebaseQueues[hugoSymbol] ? angular.copy($rootScope.firebaseQueues[hugoSymbol].queue) : [];
                     }
-      
                     
                 };
                 $scope.updateQueueInDB = function (hugoSymbol, updatedQueues) {
